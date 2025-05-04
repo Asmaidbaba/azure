@@ -1,6 +1,10 @@
 provider "azurerm" {
   features {}
-  subscription_id = "c61a92b8-b74e-4136-8fd7-241ed45e27be"
+
+  client_id       = var.client_id
+  client_secret   = var.client_secret
+  tenant_id       = var.tenant_id
+  subscription_id = var.subscription_id
 }
 
 resource "azurerm_resource_group" "rg" {
@@ -38,10 +42,9 @@ resource "azurerm_linux_virtual_machine" "vm" {
   name                = "asma-projet-vm"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
-  size                = "Standard_B1s" 
+  size                = "Standard_B1s"
   admin_username      = "asma"
-
-  admin_password = "Asma@12345678"
+  admin_password      = "Asma@12345678"
 
   network_interface_ids = [
     azurerm_network_interface.nic.id,
